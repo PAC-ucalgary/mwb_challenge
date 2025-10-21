@@ -15,7 +15,16 @@
     *{box-sizing:border-box}
     body{margin:0;font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text)}
     header{background:var(--brand);color:#fff;text-align:center;padding:32px 16px 24px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
-    header img{height:70px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+    /* Bigger, still responsive */
+    header img{
+      height:min(12vh,120px);   /* ~120px max, scales on small screens */
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,.25);
+    }
+        /* Invisible until you highlight it */
+    .easter-egg{ color:var(--bg); }                           /* matches page background */
+    .easter-egg::selection, .easter-egg::-moz-selection{ color:#111; }  /* turns dark when selected */
+
     header h1{margin:12px 0 4px;font-weight:800;font-size:28px}
     header p{margin:0;font-weight:500;opacity:.9}
     .actions{margin-top:14px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
@@ -98,7 +107,11 @@
     <p class="note">Each member must contribute ≥10% of team total to qualify for prizes.</p>
   </section>
 
-  <footer>© MWB • Live data from Google Sheets • Auto-refreshes every 60 seconds</footer>
+<footer>
+  © MWB • Live data from Google Sheets • Auto-refreshes every 60 seconds
+  <span class="easter-egg"> • Inspired by PAC</span>
+</footer>
+
 </main>
 
 <!-- All logic embedded here so the page is a single HTML file -->
