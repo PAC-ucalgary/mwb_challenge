@@ -219,12 +219,17 @@ async function load(){
     `);
     $('#topVolsError').classList.add('hidden');
 
-    // ===== C) Yearly Overall (unchanged)
-    const yearly=monthly.map(r=>{
-      const team=(r['team']||r.__raw['Team']||'').trim();
-      const total=number(r['total for year'] ?? r.__raw?.['Total for Year']);
-      return {team,total};
-    }).sort((a,b)=> b.total-a.total);
+    // ===== C) Yearly Overall (skip "No Team")
+    const yearly = monthly
+      .map(r=>{
+        const team=(r['team']||r.__raw['Team']||'').trim();
+        if(!team || team.toLowerCase()==='no team') return null; // 🚫 skip "No Team"
+        const total=number(r['total for year'] ?? r.__raw?.['Total for Year']);
+        return {team,total};
+      })
+      .filter(Boolean)
+      .sort((a,b)=> b.total - a.total);
+
 
     renderRows($('#yearlyBody'), yearly, (r,i)=>`
       <td>${rankBadge(i)}</td><td>${r.team}</td><td><strong>${r.total}</strong></td>
