@@ -204,7 +204,7 @@ async function load(){
         team:(r['team']||r.__raw['Team']||'').trim(),
         points:number(mk ? (r[mk] ?? r.__raw?.[mk]) : 0)
       };
-    }).sort((a,b)=> b.points-a.points).slice(0,20);
+    }).sort((a,b)=> b.points-a.points);
 
     const podium=topVols.slice(0,3); const medal=i=>i===0?'g':(i===1?'s':'b');
     $('#podium').innerHTML=podium.map((v,i)=>`
